@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -988,17 +989,20 @@ body {
       score_marketing: SCORES.marketing,
       score_trust: SCORES.trust
     };
+    // Build form-encoded body (no preflight CORS issues)
+    var formData = new URLSearchParams();
+    Object.keys(payload).forEach(function(k) { formData.append(k, payload[k]); });
+
     // Formspree — lead capture
     fetch('https://formspree.io/f/mykqqvqz', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-      body: JSON.stringify(payload)
+      body: formData
     }).catch(function(err) { console.warn('Formspree error:', err); });
+
     // Zapier webhook — email sequence trigger
     fetch('https://hooks.zapier.com/hooks/catch/27684861/4u8ner0/', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload)
+      body: formData
     }).catch(function(err) { console.warn('Zapier error:', err); });
   }
 
