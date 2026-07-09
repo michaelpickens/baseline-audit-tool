@@ -1,1076 +1,1103 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Baseline Brands — Free Store Brief</title>
-<style>
-* { box-sizing: border-box; margin: 0; padding: 0; }
-
-body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  background: #f5f5f3;
-  color: #111;
-  min-height: 100vh;
-  -webkit-font-smoothing: antialiased;
-}
-
-.screen { display: none; }
-.screen.active { display: flex; }
-
-/* ── INPUT SCREEN ── */
-#input-screen {
-  min-height: 100vh;
-  flex-direction: column;
-  background: #f5f5f3;
-}
-
-.input-nav {
-  padding: 20px 40px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  border-bottom: 1px solid #e0e0dc;
-  background: #fff;
-}
-
-.nav-logo {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.logo-mark {
-  width: 28px;
-  height: 28px;
-  background: #1a1a1a;
-  border-radius: 6px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #fff;
-  font-size: 13px;
-  font-weight: 800;
-  letter-spacing: -0.5px;
-}
-
-.logo-text {
-  font-size: 14px;
-  font-weight: 700;
-  letter-spacing: 0.04em;
-  color: #1a1a1a;
-  text-transform: uppercase;
-}
-
-.nav-tagline {
-  font-size: 14px;
-  font-weight: 700;
-  letter-spacing: 0.04em;
-  color: #1a1a1a;
-  text-transform: uppercase;
-}
-
-.input-hero {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 60px 24px;
-}
-
-.hero-eyebrow {
-  font-size: clamp(36px, 5vw, 60px);
-  font-weight: 800;
-  letter-spacing: -0.02em;
-  color: #e85d26;
-  margin-bottom: 12px;
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  line-height: 1.08;
-}
-
-.hero-eyebrow::before, .hero-eyebrow::after {
-  content: '';
-  display: block;
-  width: 32px;
-  height: 3px;
-  background: #e85d26;
-  border-radius: 2px;
-  flex-shrink: 0;
-}
-
-.hero-headline {
-  font-size: clamp(36px, 5vw, 60px);
-  font-weight: 800;
-  line-height: 1.08;
-  text-align: center;
-  max-width: 660px;
-  margin-bottom: 18px;
-  color: #111;
-  letter-spacing: -0.02em;
-}
-
-.hero-headline em {
-  font-style: normal;
-  color: #e85d26;
-}
-
-.hero-sub {
-  font-size: 16px;
-  color: #666;
-  text-align: center;
-  max-width: 420px;
-  line-height: 1.65;
-  margin-bottom: 48px;
-}
-
-.input-card {
-  background: #fff;
-  border: 1px solid #e0e0dc;
-  border-radius: 16px;
-  padding: 36px;
-  width: 100%;
-  max-width: 460px;
-  box-shadow: 0 4px 24px rgba(0,0,0,0.06);
-}
-
-.input-group { margin-bottom: 16px; }
-
-.input-group label {
-  display: block;
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: #555;
-  margin-bottom: 7px;
-}
-
-.input-group input {
-  width: 100%;
-  background: #f9f9f7;
-  border: 1.5px solid #e0e0dc;
-  border-radius: 8px;
-  padding: 12px 14px;
-  font-size: 15px;
-  color: #111;
-  font-family: inherit;
-  outline: none;
-  transition: border-color 0.15s;
-}
-
-.input-group input:focus { border-color: #e85d26; background: #fff; }
-.input-group input::placeholder { color: #777; }
-
-.cta-btn {
-  width: 100%;
-  background: #1a1a1a;
-  color: #fff;
-  border: none;
-  border-radius: 8px;
-  padding: 15px;
-  font-size: 15px;
-  font-weight: 700;
-  font-family: inherit;
-  cursor: pointer;
-  margin-top: 8px;
-  transition: background 0.15s, transform 0.1s;
-  letter-spacing: 0.01em;
-}
-
-.cta-btn:hover { background: #e85d26; }
-.cta-btn:active { transform: scale(0.99); }
-
-.trust-pills {
-  display: flex;
-  gap: 16px;
-  margin-top: 24px;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-
-.trust-pill {
-  font-size: 12px;
-  color: #444;
-  display: flex;
-  align-items: center;
-  gap: 5px;
-  font-weight: 500;
-}
-
-.trust-pill::before { content: '✓'; color: #e85d26; font-weight: 700; }
-
-/* ── LOADING SCREEN ── */
-#loading-screen {
-  min-height: 100vh;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  background: #f5f5f3;
-  gap: 24px;
-}
-
-.loading-logo {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 8px;
-}
-
-.loader-label {
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: #999;
-}
-
-.loader-url-display {
-  font-size: 15px;
-  font-weight: 600;
-  color: #111;
-  font-family: monospace;
-}
-
-.loader-bar-wrap {
-  width: 300px;
-  height: 3px;
-  background: #e0e0dc;
-  border-radius: 2px;
-  overflow: hidden;
-}
-
-.loader-bar {
-  height: 100%;
-  background: #e85d26;
-  border-radius: 2px;
-  width: 0%;
-  transition: width 0.5s ease;
-}
-
-.loader-steps {
-  display: flex;
-  flex-direction: column;
-  gap: 11px;
-  align-items: flex-start;
-  width: 300px;
-}
-
-.loader-step {
-  font-size: 13px;
-  color: #ccc;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  transition: color 0.3s;
-}
-
-.loader-step.done { color: #111; }
-.loader-step.done .step-dot { background: #e85d26; }
-
-.step-dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: #ddd;
-  flex-shrink: 0;
-  transition: background 0.3s;
-}
-
-/* ── BRIEF SCREEN ── */
-#brief-screen {
-  background: #f5f5f3;
-  min-height: 100vh;
-  flex-direction: column;
-}
-
-.brief-nav {
-  background: #fff;
-  border-bottom: 1px solid #e0e0dc;
-  padding: 0 40px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  height: 56px;
-  position: sticky;
-  top: 0;
-  z-index: 10;
-}
-
-.brief-nav-left {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-}
-
-.nav-divider {
-  width: 1px;
-  height: 20px;
-  background: #e0e0dc;
-}
-
-.brief-store-label {
-  font-size: 13px;
-  color: #999;
-  font-family: monospace;
-}
-
-.brief-nav-right {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.nav-score-badge {
-  background: #fff8f5;
-  border: 1px solid #f0c4a8;
-  color: #e85d26;
-  font-size: 13px;
-  font-weight: 700;
-  padding: 5px 14px;
-  border-radius: 20px;
-}
-
-.brief-body {
-  max-width: 900px;
-  margin: 0 auto;
-  padding: 40px 24px 100px;
-  width: 100%;
-}
-
-/* Hero block */
-.brief-hero {
-  background: #1a1a1a;
-  border-radius: 16px;
-  padding: 36px 40px;
-  margin-bottom: 24px;
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 32px;
-  flex-wrap: wrap;
-}
-
-.brief-hero-left {}
-
-.brief-hero-eyebrow {
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: #e85d26;
-  margin-bottom: 10px;
-}
-
-.brief-hero-store {
-  font-size: 36px;
-  font-weight: 800;
-  color: #fff;
-  letter-spacing: -0.02em;
-  margin-bottom: 6px;
-}
-
-.brief-hero-domain {
-  font-size: 14px;
-  color: #555;
-  font-family: monospace;
-  margin-bottom: 16px;
-}
-
-.platform-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  background: #2a2a2a;
-  border: 1px solid #333;
-  color: #aaa;
-  font-size: 12px;
-  font-weight: 600;
-  padding: 5px 12px;
-  border-radius: 6px;
-}
-
-.brief-hero-right {
-  text-align: right;
-  flex-shrink: 0;
-}
-
-.score-ring {
-  width: 96px;
-  height: 96px;
-  position: relative;
-  margin-left: auto;
-  margin-bottom: 8px;
-}
-
-.score-ring svg { transform: rotate(-90deg); display: block; }
-
-.score-num {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 28px;
-  font-weight: 800;
-  color: #fff;
-  letter-spacing: -0.02em;
-}
-
-.score-label {
-  font-size: 10px;
-  color: #555;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-}
-
-.report-meta {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 24px;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-
-.report-date { font-size: 12px; color: #999; }
-
-.grade-badge {
-  font-size: 12px;
-  font-weight: 700;
-  color: #e85d26;
-  background: #fff8f5;
-  border: 1px solid #f0c4a8;
-  border-radius: 20px;
-  padding: 4px 14px;
-}
-
-/* Sections */
-.section { margin-bottom: 20px; }
-
-.section-card {
-  background: #fff;
-  border: 1px solid #e0e0dc;
-  border-radius: 12px;
-  overflow: hidden;
-}
-
-.section-header {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 18px 24px;
-  border-bottom: 1px solid #f0f0ec;
-  cursor: pointer;
-  user-select: none;
-}
-
-.section-icon {
-  width: 32px;
-  height: 32px;
-  border-radius: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 15px;
-  flex-shrink: 0;
-}
-
-.section-title {
-  font-size: 15px;
-  font-weight: 700;
-  letter-spacing: 0.07em;
-  text-transform: uppercase;
-  color: #333;
-}
-
-.section-score {
-  margin-left: auto;
-  font-size: 15px;
-  font-weight: 700;
-  padding: 4px 14px;
-  border-radius: 20px;
-}
-
-.sc-good { background: #edfbf3; color: #16a057; border: 1px solid #b6ebd0; }
-.sc-mid  { background: #fffbec; color: #c07a00; border: 1px solid #f5dfa0; }
-.sc-bad  { background: #fff2f0; color: #cc2a00; border: 1px solid #ffbcb0; }
-
-.section-body { padding: 20px 24px; }
-
-/* Metric grid */
-.metric-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
-  gap: 12px;
-}
-
-.metric-card {
-  background: #f9f9f7;
-  border: 1px solid #ebebeb;
-  border-radius: 10px;
-  padding: 16px;
-}
-
-.metric-label {
-  font-size: 10px;
-  color: #999;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  margin-bottom: 6px;
-  font-weight: 600;
-}
-
-.metric-value {
-  font-size: 24px;
-  font-weight: 800;
-  margin-bottom: 4px;
-  letter-spacing: -0.02em;
-}
-
-.metric-note { font-size: 11px; color: #777; }
-
-.mv-good { color: #16a057; }
-.mv-mid  { color: #c07a00; }
-.mv-bad  { color: #cc2a00; }
-.mv-neu  { color: #111; }
-
-/* Check list */
-.check-list { display: flex; flex-direction: column; gap: 8px; }
-
-.check-item {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  background: #f9f9f7;
-  border: 1px solid #ebebeb;
-  border-radius: 8px;
-  padding: 12px 16px;
-  font-size: 14px;
-  color: #333;
-}
-
-.check-item .ci-icon { font-size: 15px; flex-shrink: 0; line-height: 1; }
-.check-detail { margin-left: auto; font-size: 11px; color: #bbb; white-space: nowrap; }
-
-/* Tag cloud */
-.tag-cloud { display: flex; flex-wrap: wrap; gap: 8px; }
-
-.app-tag {
-  background: #f9f9f7;
-  border: 1px solid #ebebeb;
-  border-radius: 6px;
-  padding: 6px 12px;
-  font-size: 13px;
-  color: #444;
-  display: flex;
-  align-items: center;
-  gap: 7px;
-  font-weight: 500;
-}
-
-.tag-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
-.td-green { background: #16a057; }
-.td-gray  { background: #ccc; }
-
-.subsection-label {
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: #bbb;
-  margin-bottom: 10px;
-}
-
-.missing-list { display: flex; flex-direction: column; gap: 8px; }
-
-.missing-item {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 10px 16px;
-  background: #fff8f5;
-  border: 1px solid #f0c4a8;
-  border-radius: 8px;
-  font-size: 13px;
-  color: #cc5500;
-}
-
-/* Quick wins */
-.wins-list { display: flex; flex-direction: column; gap: 12px; }
-
-.win-card {
-  border: 1px solid #e0e0dc;
-  border-radius: 12px;
-  padding: 22px 24px;
-  display: flex;
-  gap: 20px;
-  align-items: flex-start;
-  background: #fff;
-  border-left: 4px solid #e85d26;
-}
-
-.win-number {
-  font-size: 32px;
-  font-weight: 800;
-  color: #f0d0c0;
-  line-height: 1;
-  flex-shrink: 0;
-  width: 36px;
-  letter-spacing: -0.03em;
-}
-
-.win-title {
-  font-size: 15px;
-  font-weight: 700;
-  color: #111;
-  margin-bottom: 6px;
-  letter-spacing: -0.01em;
-}
-
-.win-desc {
-  font-size: 13px;
-  color: #666;
-  line-height: 1.65;
-}
-
-.win-impact {
-  display: inline-block;
-  margin-top: 10px;
-  font-size: 11px;
-  font-weight: 700;
-  color: #e85d26;
-  background: #fff8f5;
-  border: 1px solid #f0c4a8;
-  border-radius: 20px;
-  padding: 3px 10px;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-}
-
-/* CTA block */
-.cta-block {
-  background: #1a1a1a;
-  border-radius: 16px;
-  padding: 48px 40px;
-  text-align: center;
-  margin-top: 32px;
-}
-
-.cta-eyebrow {
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: #e85d26;
-  margin-bottom: 14px;
-}
-
-.cta-block h2 {
-  font-size: 26px;
-  font-weight: 800;
-  color: #fff;
-  margin-bottom: 10px;
-  letter-spacing: -0.02em;
-}
-
-.cta-block p {
-  font-size: 15px;
-  color: #888;
-  margin-bottom: 28px;
-  line-height: 1.65;
-  max-width: 400px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.cta-main {
-  display: inline-block;
-  background: #e85d26;
-  color: #fff;
-  border: none;
-  border-radius: 8px;
-  padding: 15px 36px;
-  font-size: 15px;
-  font-weight: 700;
-  font-family: inherit;
-  cursor: pointer;
-  transition: background 0.15s;
-  letter-spacing: 0.01em;
-}
-
-.cta-main:hover { background: #cf4d18; }
-
-.cta-sub {
-  display: block;
-  margin-top: 14px;
-  font-size: 12px;
-  color: #888;
-}
-
-/* Divider between subsections */
-.sub-divider { height: 1px; background: #f0f0ec; margin: 18px 0; }
-
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Free Store Audit — Baseline Brands</title>
+
+  <style>
+    /* ── Reset & base ─────────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --orange:      #e85d26;
+      --orange-light:#f07040;
+      --black:       #0e0e0e;
+      --near-black:  #1a1a1a;
+      --dark-grey:   #2a2a2a;
+      --mid-grey:    #555;
+      --light-grey:  #e8e8e8;
+      --off-white:   #f5f5f5;
+      --white:       #ffffff;
+      --green:       #22c55e;
+      --yellow:      #eab308;
+      --red:         #ef4444;
+      --font-mono:   'Courier New', Courier, monospace;
+    }
+
+    html, body {
+      height: 100%;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: var(--white);
+      color: var(--black);
+    }
+
+    /* ── Screen manager ──────────────────────────────────────────────── */
+    .screen { display: none; min-height: 100vh; }
+    .screen.active { display: flex; }
+
+    /* ─────────────────────────────────────────────────────────────────── */
+    /* SCREEN 1 — INPUT                                                    */
+    /* ─────────────────────────────────────────────────────────────────── */
+    #screen-input {
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 48px 24px;
+      background: var(--white);
+    }
+
+    .brand-bar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: 48px;
+      background: var(--black);
+      display: flex;
+      align-items: center;
+      padding: 0 24px;
+      z-index: 100;
+    }
+    .brand-bar .logo {
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--white);
+    }
+    .brand-bar .logo span { color: var(--orange); }
+
+    .input-card {
+      width: 100%;
+      max-width: 520px;
+      margin-top: 48px;
+    }
+
+    .input-card h1 {
+      font-size: clamp(28px, 5vw, 40px);
+      font-weight: 800;
+      line-height: 1.1;
+      color: var(--black);
+      margin-bottom: 12px;
+    }
+    .input-card h1 span { color: var(--orange); }
+
+    .input-card .sub {
+      font-size: 15px;
+      color: var(--mid-grey);
+      margin-bottom: 36px;
+      line-height: 1.6;
+    }
+
+    .field {
+      margin-bottom: 16px;
+    }
+    .field label {
+      display: block;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--mid-grey);
+      margin-bottom: 6px;
+    }
+    .field input {
+      width: 100%;
+      padding: 14px 16px;
+      border: 1.5px solid var(--light-grey);
+      border-radius: 6px;
+      font-size: 15px;
+      color: var(--black);
+      background: var(--white);
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    .field input:focus { border-color: var(--orange); }
+    .field input::placeholder { color: #bbb; }
+
+    .cta-btn {
+      width: 100%;
+      padding: 16px;
+      background: var(--orange);
+      color: var(--white);
+      border: none;
+      border-radius: 6px;
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      cursor: pointer;
+      transition: background 0.15s;
+      margin-top: 8px;
+    }
+    .cta-btn:hover { background: var(--orange-light); }
+    .cta-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+
+    .trust-note {
+      font-size: 12px;
+      color: #aaa;
+      text-align: center;
+      margin-top: 16px;
+    }
+
+    .error-msg {
+      background: #fef2f2;
+      border: 1px solid #fecaca;
+      color: #dc2626;
+      padding: 12px 14px;
+      border-radius: 6px;
+      font-size: 13px;
+      margin-bottom: 16px;
+      display: none;
+    }
+    .error-msg.show { display: block; }
+
+    /* ─────────────────────────────────────────────────────────────────── */
+    /* SCREEN 2 — LOADING                                                  */
+    /* ─────────────────────────────────────────────────────────────────── */
+    #screen-loading {
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: var(--black);
+      color: var(--white);
+      padding: 48px 24px;
+      text-align: center;
+    }
+
+    .loading-logo {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--white);
+      margin-bottom: 48px;
+      opacity: 0.5;
+    }
+    .loading-logo span { color: var(--orange); }
+
+    .scan-url {
+      font-size: 14px;
+      font-family: var(--font-mono);
+      color: var(--orange);
+      margin-bottom: 40px;
+      opacity: 0.85;
+    }
+
+    /* Progress bar */
+    .progress-wrap {
+      width: 280px;
+      height: 3px;
+      background: #333;
+      border-radius: 2px;
+      overflow: hidden;
+      margin-bottom: 40px;
+    }
+    .progress-bar {
+      height: 100%;
+      background: var(--orange);
+      width: 0%;
+      transition: width 0.4s ease;
+    }
+
+    /* Checklist */
+    .check-list {
+      list-style: none;
+      text-align: left;
+      width: 260px;
+    }
+    .check-list li {
+      font-size: 13px;
+      font-family: var(--font-mono);
+      color: #666;
+      padding: 6px 0;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      transition: color 0.3s;
+    }
+    .check-list li.done { color: #ccc; }
+    .check-list li.active { color: var(--orange); }
+    .check-icon { width: 14px; flex-shrink: 0; }
+    .check-icon.done { color: var(--green); }
+
+    /* ─────────────────────────────────────────────────────────────────── */
+    /* SCREEN 3 — BRIEF                                                    */
+    /* ─────────────────────────────────────────────────────────────────── */
+    #screen-brief {
+      flex-direction: column;
+      background: var(--off-white);
+    }
+
+    .brief-nav {
+      background: var(--black);
+      padding: 14px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .brief-nav .logo {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--white);
+    }
+    .brief-nav .logo span { color: var(--orange); }
+    .brief-nav .nav-right {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+    .btn-small {
+      padding: 8px 16px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      border-radius: 4px;
+      cursor: pointer;
+      border: none;
+      transition: all 0.15s;
+    }
+    .btn-outline {
+      background: transparent;
+      color: var(--white);
+      border: 1px solid #444;
+    }
+    .btn-outline:hover { border-color: #888; }
+    .btn-primary-sm {
+      background: var(--orange);
+      color: var(--white);
+    }
+    .btn-primary-sm:hover { background: var(--orange-light); }
+
+    /* Brief content */
+    .brief-body {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 40px 24px 80px;
+      width: 100%;
+    }
+
+    .brief-header {
+      margin-bottom: 32px;
+    }
+    .brief-header .eyebrow {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--orange);
+      margin-bottom: 8px;
+    }
+    .brief-header h2 {
+      font-size: clamp(22px, 4vw, 32px);
+      font-weight: 800;
+      color: var(--black);
+      margin-bottom: 6px;
+    }
+    .brief-header .meta {
+      font-size: 13px;
+      color: var(--mid-grey);
+      font-family: var(--font-mono);
+    }
+    .brief-header .meta .platform-badge {
+      display: inline-block;
+      padding: 2px 8px;
+      background: var(--black);
+      color: var(--white);
+      border-radius: 3px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-left: 8px;
+    }
+
+    /* Overall score row */
+    .overall-row {
+      background: var(--black);
+      border-radius: 8px;
+      padding: 24px 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 28px;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .overall-row .label {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #888;
+      margin-bottom: 4px;
+    }
+    .overall-row .big-score {
+      font-size: 52px;
+      font-weight: 900;
+      color: var(--white);
+      line-height: 1;
+    }
+    .overall-row .big-score span {
+      font-size: 20px;
+      color: #555;
+      font-weight: 400;
+    }
+    .score-pills {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .score-pill {
+      text-align: center;
+    }
+    .score-pill .pill-val {
+      display: block;
+      font-size: 24px;
+      font-weight: 800;
+      color: var(--white);
+    }
+    .score-pill .pill-label {
+      display: block;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #666;
+      margin-top: 2px;
+    }
+    .divider { width: 1px; height: 40px; background: #333; }
+
+    /* Section cards */
+    .section-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    @media (max-width: 600px) {
+      .section-grid { grid-template-columns: 1fr; }
+    }
+
+    .card {
+      background: var(--white);
+      border-radius: 8px;
+      border: 1px solid #e4e4e4;
+      padding: 20px 22px;
+    }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 14px;
+    }
+    .card-title {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--mid-grey);
+    }
+    .score-badge {
+      font-size: 20px;
+      font-weight: 900;
+      color: var(--black);
+    }
+    .score-badge .score-label {
+      font-size: 10px;
+      font-weight: 600;
+      color: var(--mid-grey);
+      margin-left: 4px;
+      font-family: inherit;
+    }
+
+    .score-bar-wrap {
+      height: 4px;
+      background: var(--light-grey);
+      border-radius: 2px;
+      margin-bottom: 14px;
+      overflow: hidden;
+    }
+    .score-bar {
+      height: 100%;
+      border-radius: 2px;
+      transition: width 0.8s ease;
+    }
+    .bar-green  { background: var(--green); }
+    .bar-yellow { background: var(--yellow); }
+    .bar-red    { background: var(--red); }
+    .bar-orange { background: var(--orange); }
+
+    .finding {
+      font-size: 13px;
+      color: #444;
+      line-height: 1.55;
+      padding: 6px 0;
+      border-bottom: 1px solid #f0f0f0;
+    }
+    .finding:last-child { border-bottom: none; }
+    .finding::before {
+      content: "→ ";
+      color: var(--orange);
+      font-weight: 700;
+    }
+
+    /* Metrics table */
+    .metrics-row {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-bottom: 12px;
+    }
+    .metric {
+      text-align: left;
+    }
+    .metric .m-val {
+      font-size: 15px;
+      font-weight: 800;
+      color: var(--black);
+      font-family: var(--font-mono);
+    }
+    .metric .m-key {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: #aaa;
+      margin-top: 1px;
+    }
+
+    /* Tech stack */
+    .tag-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 12px;
+    }
+    .tag {
+      padding: 3px 9px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+    }
+    .tag-present { background: #f0fdf4; color: #16a34a; }
+    .tag-missing { background: #fef2f2; color: #dc2626; }
+
+    /* Quick wins section */
+    .wins-section {
+      background: var(--white);
+      border: 1.5px solid var(--orange);
+      border-radius: 8px;
+      padding: 24px 24px;
+      margin-bottom: 28px;
+    }
+    .wins-section h3 {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--orange);
+      margin-bottom: 20px;
+    }
+
+    .win-item {
+      padding: 16px 0;
+      border-bottom: 1px solid var(--light-grey);
+    }
+    .win-item:last-child { border-bottom: none; }
+
+    .win-title {
+      font-size: 15px;
+      font-weight: 800;
+      color: var(--black);
+      margin-bottom: 6px;
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+    }
+    .win-num {
+      flex-shrink: 0;
+      width: 22px;
+      height: 22px;
+      background: var(--orange);
+      color: var(--white);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 800;
+      margin-top: 1px;
+    }
+    .win-meta {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 8px;
+      margin-left: 32px;
+    }
+    .win-badge {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 2px 7px;
+      border-radius: 3px;
+    }
+    .win-badge.effort { background: #f0f0f0; color: #555; }
+    .win-badge.impact-high { background: #fef9c3; color: #854d0e; }
+    .win-badge.impact-medium { background: #e0f2fe; color: #0369a1; }
+    .win-detail {
+      font-size: 13px;
+      color: #555;
+      line-height: 1.6;
+      margin-left: 32px;
+      margin-bottom: 8px;
+    }
+    .win-proof {
+      font-size: 12px;
+      color: var(--orange);
+      font-style: italic;
+      margin-left: 32px;
+    }
+
+    /* CTA section */
+    .cta-section {
+      background: var(--black);
+      border-radius: 8px;
+      padding: 28px 28px;
+      text-align: center;
+    }
+    .cta-section p {
+      font-size: 14px;
+      color: #888;
+      margin-bottom: 20px;
+      line-height: 1.6;
+    }
+    .cta-section p strong { color: var(--white); }
+    .cta-section a {
+      display: inline-block;
+      padding: 14px 32px;
+      background: var(--orange);
+      color: var(--white);
+      border-radius: 6px;
+      font-size: 14px;
+      font-weight: 700;
+      text-decoration: none;
+      letter-spacing: 0.04em;
+      transition: background 0.15s;
+    }
+    .cta-section a:hover { background: var(--orange-light); }
+    .cta-section .fine {
+      font-size: 11px;
+      color: #555;
+      margin-top: 14px;
+    }
+  </style>
 </head>
 <body>
 
-<!-- SCREEN 1: Input -->
-<div id="input-screen" class="screen active">
-  <nav class="input-nav">
-    <div class="nav-logo">
-      <div class="logo-mark">B</div>
-      <div class="logo-text">Baseline Brands</div>
+  <!-- ─── SCREEN 1: INPUT ─────────────────────────────────────────────────── -->
+  <div id="screen-input" class="screen active">
+    <div class="brand-bar">
+      <div class="logo">Baseline<span>.</span>Brands</div>
     </div>
-    <div class="nav-tagline">E-commerce growth consulting</div>
-  </nav>
-
-  <div class="input-hero">
-    <div class="hero-eyebrow">Free Store Audit</div>
-    <h1 class="hero-headline">Know exactly what's<br>holding your store back.</h1>
-    <p class="hero-sub">Drop your URL and get a free one-page brief covering performance, SEO, your marketing stack, and your top quick wins.</p>
 
     <div class="input-card">
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
-        <div class="input-group" style="margin-bottom:0;">
-          <label>First Name</label>
-          <input type="text" id="first-name-input" placeholder="Jane" />
-        </div>
-        <div class="input-group" style="margin-bottom:0;">
-          <label>Last Name</label>
-          <input type="text" id="last-name-input" placeholder="Smith" />
-        </div>
-      </div>
-      <div class="input-group" style="margin-top:16px;">
-        <label>Store URL</label>
-        <input type="text" id="url-input" placeholder="yourstore.com" />
-      </div>
-      <div class="input-group">
-        <label>Your Email</label>
-        <input type="email" id="email-input" placeholder="you@yourstore.com" />
-      </div>
-      <button class="cta-btn" id="audit-btn">Run My Free Audit &rarr;</button>
-    </div>
+      <h1>Get your free<br>store <span>audit brief</span></h1>
+      <p class="sub">
+        Enter your store URL and we'll run a real analysis — performance,
+        SEO, marketing stack, and trust signals — in about 30 seconds.
+      </p>
 
-    <div class="trust-pills">
-      <span class="trust-pill">No credit card</span>
-      <span class="trust-pill">No sales call unless you want one</span>
-      <span class="trust-pill">Takes 60 seconds</span>
+      <div class="error-msg" id="error-msg"></div>
+
+      <div class="field">
+        <label for="store-url">Store URL</label>
+        <input
+          type="url"
+          id="store-url"
+          placeholder="https://yourstore.com"
+          autocomplete="off"
+          spellcheck="false"
+        />
+      </div>
+
+      <div class="field">
+        <label for="email">Your email</label>
+        <input
+          type="email"
+          id="email"
+          placeholder="you@yourstore.com"
+          autocomplete="email"
+        />
+      </div>
+
+      <button class="cta-btn" id="run-btn" onclick="startAudit()">
+        Run Free Audit
+      </button>
+
+      <p class="trust-note">No credit card. No sales call. Just your numbers.</p>
     </div>
   </div>
-</div>
 
-<!-- SCREEN 2: Loading -->
-<div id="loading-screen" class="screen">
-  <div class="loading-logo">
-    <div class="logo-mark">B</div>
-    <div class="logo-text">Baseline Brands</div>
+  <!-- ─── SCREEN 2: LOADING ───────────────────────────────────────────────── -->
+  <div id="screen-loading" class="screen">
+    <div class="loading-logo">Baseline<span>.</span>Brands</div>
+    <div class="scan-url" id="scan-url-display"></div>
+
+    <div class="progress-wrap">
+      <div class="progress-bar" id="progress-bar"></div>
+    </div>
+
+    <ul class="check-list" id="check-list">
+      <li id="step-perf">
+        <span class="check-icon" id="icon-perf">○</span>
+        Running PageSpeed analysis...
+      </li>
+      <li id="step-html">
+        <span class="check-icon" id="icon-html">○</span>
+        Fetching store HTML...
+      </li>
+      <li id="step-tech">
+        <span class="check-icon" id="icon-tech">○</span>
+        Detecting tech stack...
+      </li>
+      <li id="step-seo">
+        <span class="check-icon" id="icon-seo">○</span>
+        Scoring SEO signals...
+      </li>
+      <li id="step-trust">
+        <span class="check-icon" id="icon-trust">○</span>
+        Evaluating trust signals...
+      </li>
+      <li id="step-brief">
+        <span class="check-icon" id="icon-brief">○</span>
+        Building your brief...
+      </li>
+    </ul>
   </div>
-  <div class="loader-label">Analyzing</div>
-  <div class="loader-url-display" id="loader-url-display"></div>
-  <div class="loader-bar-wrap"><div class="loader-bar" id="loader-bar"></div></div>
-  <div class="loader-steps">
-    <div class="loader-step" id="step-1"><span class="step-dot"></span> Detecting platform &amp; tech stack</div>
-    <div class="loader-step" id="step-2"><span class="step-dot"></span> Running performance scan</div>
-    <div class="loader-step" id="step-3"><span class="step-dot"></span> Checking SEO signals</div>
-    <div class="loader-step" id="step-4"><span class="step-dot"></span> Auditing marketing stack</div>
-    <div class="loader-step" id="step-5"><span class="step-dot"></span> Identifying quick wins</div>
-  </div>
-</div>
 
-<!-- SCREEN 3: Brief -->
-<div id="brief-screen" class="screen">
-
-  <nav class="brief-nav">
-    <div class="brief-nav-left">
-      <div class="nav-logo">
-        <div class="logo-mark">B</div>
-        <div class="logo-text">Baseline Brands</div>
+  <!-- ─── SCREEN 3: BRIEF ─────────────────────────────────────────────────── -->
+  <div id="screen-brief" class="screen">
+    <nav class="brief-nav">
+      <div class="logo">Baseline<span>.</span>Brands</div>
+      <div class="nav-right">
+        <button class="btn-small btn-outline" onclick="resetAudit()">Run another</button>
+        <a
+          href="https://calendar.app.google/trQdobQ8V2icMi4L8"
+          target="_blank"
+          class="btn-small btn-primary-sm"
+        >Book a call →</a>
       </div>
-      <div class="nav-divider"></div>
-      <div class="brief-store-label" id="header-url"></div>
-    </div>
-    <div class="brief-nav-right">
-      <span class="nav-score-badge">Overall Score: 62 / 100</span>
-    </div>
-  </nav>
+    </nav>
 
-  <div class="brief-body">
+    <div class="brief-body">
 
-    <!-- Hero block -->
-    <div class="brief-hero">
-      <div class="brief-hero-left">
-        <div class="brief-hero-eyebrow">Store Audit Report</div>
-        <div class="brief-hero-store" id="store-name">Store</div>
-        <div class="brief-hero-domain" id="store-domain-display"></div>
-        <div class="platform-badge">&#128722; Shopify &bull; Dawn Theme</div>
-      </div>
-      <div class="brief-hero-right">
-        <div class="score-ring">
-          <svg width="96" height="96" viewBox="0 0 96 96">
-            <circle cx="48" cy="48" r="40" fill="none" stroke="#2a2a2a" stroke-width="8"/>
-            <circle cx="48" cy="48" r="40" fill="none" stroke="#e85d26" stroke-width="8"
-              stroke-dasharray="251.3" stroke-dashoffset="95.5" stroke-linecap="round"/>
-          </svg>
-          <div class="score-num">62</div>
+      <!-- Header -->
+      <div class="brief-header">
+        <div class="eyebrow">Store Audit Brief</div>
+        <h2 id="brief-store-name">Store Analysis</h2>
+        <div class="meta">
+          <span id="brief-url"></span>
+          <span class="platform-badge" id="brief-platform"></span>
+          &nbsp;·&nbsp;
+          <span id="brief-date"></span>
         </div>
-        <div class="score-label">Overall Score</div>
       </div>
-    </div>
 
-    <div class="report-meta">
-      <span class="report-date" id="report-date"></span>
-      <span class="grade-badge">Needs Work &mdash; Real upside here</span>
-    </div>
-
-    <!-- Performance -->
-    <div class="section">
-      <div class="section-card">
-        <div class="section-header">
-          <div class="section-icon" style="background:#fffbec;">&#9889;</div>
-          <span class="section-title">Performance</span>
-          <span class="section-score sc-mid">58 / 100</span>
+      <!-- Overall score -->
+      <div class="overall-row">
+        <div>
+          <div class="label">Overall Score</div>
+          <div class="big-score" id="overall-score">—<span>/100</span></div>
         </div>
-        <div class="section-body">
-          <div class="metric-grid">
-            <div class="metric-card"><div class="metric-label">Page Speed Mobile</div><div class="metric-value mv-bad">42</div><div class="metric-note">Google PageSpeed</div></div>
-            <div class="metric-card"><div class="metric-label">Page Speed Desktop</div><div class="metric-value mv-mid">74</div><div class="metric-note">Google PageSpeed</div></div>
-            <div class="metric-card"><div class="metric-label">Largest Contentful Paint</div><div class="metric-value mv-bad">4.2s</div><div class="metric-note">Target: under 2.5s</div></div>
-            <div class="metric-card"><div class="metric-label">Mobile Responsive</div><div class="metric-value mv-good">Yes</div><div class="metric-note">Passes mobile check</div></div>
+        <div class="score-pills">
+          <div class="score-pill">
+            <span class="pill-val" id="pill-perf">—</span>
+            <span class="pill-label">Performance</span>
+          </div>
+          <div class="divider"></div>
+          <div class="score-pill">
+            <span class="pill-val" id="pill-seo">—</span>
+            <span class="pill-label">SEO</span>
+          </div>
+          <div class="divider"></div>
+          <div class="score-pill">
+            <span class="pill-val" id="pill-mkt">—</span>
+            <span class="pill-label">Marketing</span>
+          </div>
+          <div class="divider"></div>
+          <div class="score-pill">
+            <span class="pill-val" id="pill-trust">—</span>
+            <span class="pill-label">Trust</span>
           </div>
         </div>
       </div>
-    </div>
 
-    <!-- SEO -->
-    <div class="section">
-      <div class="section-card">
-        <div class="section-header">
-          <div class="section-icon" style="background:#f0f8ff;">&#128269;</div>
-          <span class="section-title">SEO Health</span>
-          <span class="section-score sc-mid">65 / 100</span>
-        </div>
-        <div class="section-body">
-          <div class="check-list">
-            <div class="check-item"><span class="ci-icon">&#9989;</span> Homepage title tag present <span class="check-detail">58 characters</span></div>
-            <div class="check-item"><span class="ci-icon">&#9888;&#65039;</span> Meta description is generic &mdash; not differentiated <span class="check-detail">Detected</span></div>
-            <div class="check-item"><span class="ci-icon">&#10060;</span> Product image alt text missing on 80%+ of images <span class="check-detail">Crawled 24 images</span></div>
-            <div class="check-item"><span class="ci-icon">&#9989;</span> Clean URL structure <span class="check-detail">/products/ format</span></div>
-            <div class="check-item"><span class="ci-icon">&#9888;&#65039;</span> No blog or content section detected <span class="check-detail">SEO gap</span></div>
-          </div>
-        </div>
-      </div>
-    </div>
+      <!-- Four section cards -->
+      <div class="section-grid">
 
-    <!-- Marketing Stack -->
-    <div class="section">
-      <div class="section-card">
-        <div class="section-header">
-          <div class="section-icon" style="background:#f8f0ff;">&#128225;</div>
-          <span class="section-title">Marketing Stack</span>
-          <span class="section-score sc-bad">40 / 100</span>
-        </div>
-        <div class="section-body">
-          <div class="subsection-label">Detected</div>
-          <div class="tag-cloud" style="margin-bottom:20px;">
-            <div class="app-tag"><span class="tag-dot td-green"></span> Google Analytics 4</div>
-            <div class="app-tag"><span class="tag-dot td-green"></span> Meta Pixel</div>
-            <div class="app-tag"><span class="tag-dot td-green"></span> Hotjar</div>
-          </div>
-          <div class="sub-divider"></div>
-          <div class="subsection-label">Missing</div>
-          <div class="missing-list">
-            <div class="missing-item">&#10060; No email marketing platform detected (Klaviyo, Mailchimp, etc.)</div>
-            <div class="missing-item">&#10060; No popup / list capture tool found</div>
-            <div class="missing-item">&#10060; No SMS platform detected</div>
-            <div class="missing-item">&#10060; No loyalty or rewards app detected</div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Trust & Conversion -->
-    <div class="section">
-      <div class="section-card">
-        <div class="section-header">
-          <div class="section-icon" style="background:#f0fff5;">&#128737;</div>
-          <span class="section-title">Trust &amp; Conversion Signals</span>
-          <span class="section-score sc-mid">70 / 100</span>
-        </div>
-        <div class="section-body">
-          <div class="check-list">
-            <div class="check-item"><span class="ci-icon">&#9989;</span> Reviews app detected (Judge.me)</div>
-            <div class="check-item"><span class="ci-icon">&#9989;</span> Return policy page accessible</div>
-            <div class="check-item"><span class="ci-icon">&#10060;</span> No live chat or support widget found</div>
-            <div class="check-item"><span class="ci-icon">&#9888;&#65039;</span> Shipping info not visible above fold on product pages</div>
-            <div class="check-item"><span class="ci-icon">&#10060;</span> No upsell or cross-sell app detected</div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Quick Wins -->
-    <div class="section">
-      <div class="section-card">
-        <div class="section-header">
-          <div class="section-icon" style="background:#fff8f5;">&#127919;</div>
-          <span class="section-title">Your Top 3 Quick Wins</span>
-        </div>
-        <div class="section-body">
-          <div class="wins-list">
-            <div class="win-card">
-              <div class="win-number">1</div>
-              <div>
-                <div class="win-title">Set up email capture and a welcome flow</div>
-                <div class="win-desc">You have no email platform installed. Every visitor who leaves is gone forever. A basic Klaviyo setup with a 10% off popup and a 3-email welcome flow typically recovers 8&ndash;15% of abandoning traffic.</div>
-                <span class="win-impact">High Impact &middot; 1&ndash;2 Days</span>
-              </div>
-            </div>
-            <div class="win-card">
-              <div class="win-number">2</div>
-              <div>
-                <div class="win-title">Fix mobile page speed &mdash; you're losing sales here</div>
-                <div class="win-desc">A 42 mobile score means roughly 1 in 3 mobile visitors bounces before the page loads. Image compression and lazy loading alone could bring this to 65+, which has a measurable conversion impact.</div>
-                <span class="win-impact">High Impact &middot; 3&ndash;5 Days</span>
-              </div>
-            </div>
-            <div class="win-card">
-              <div class="win-number">3</div>
-              <div>
-                <div class="win-title">Add alt text to your product images</div>
-                <div class="win-desc">80%+ of your images have no alt text. This is free SEO most stores ignore. Properly tagged images rank in Google Image Search and improve accessibility scores &mdash; both signal trust to Google.</div>
-                <span class="win-impact">Medium Impact &middot; 1 Day</span>
-              </div>
+        <!-- Performance -->
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">⚡ Performance</div>
+            <div class="score-badge">
+              <span id="perf-score">—</span>
+              <span class="score-label" id="perf-label"></span>
             </div>
           </div>
+          <div class="score-bar-wrap">
+            <div class="score-bar" id="perf-bar" style="width:0%"></div>
+          </div>
+          <div class="metrics-row" id="perf-metrics"></div>
+          <div id="perf-findings"></div>
         </div>
+
+        <!-- SEO -->
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">🔍 SEO Health</div>
+            <div class="score-badge">
+              <span id="seo-score">—</span>
+              <span class="score-label" id="seo-label"></span>
+            </div>
+          </div>
+          <div class="score-bar-wrap">
+            <div class="score-bar" id="seo-bar" style="width:0%"></div>
+          </div>
+          <div id="seo-findings"></div>
+        </div>
+
+        <!-- Marketing Stack -->
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">📣 Marketing Stack</div>
+            <div class="score-badge">
+              <span id="mkt-score">—</span>
+              <span class="score-label" id="mkt-label"></span>
+            </div>
+          </div>
+          <div class="score-bar-wrap">
+            <div class="score-bar" id="mkt-bar" style="width:0%"></div>
+          </div>
+          <div class="tag-list" id="mkt-stack"></div>
+          <div id="mkt-findings"></div>
+        </div>
+
+        <!-- Trust -->
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">🛡 Trust & Conversion</div>
+            <div class="score-badge">
+              <span id="trust-score">—</span>
+              <span class="score-label" id="trust-label"></span>
+            </div>
+          </div>
+          <div class="score-bar-wrap">
+            <div class="score-bar" id="trust-bar" style="width:0%"></div>
+          </div>
+          <div class="tag-list" id="trust-present"></div>
+          <div id="trust-findings"></div>
+        </div>
+
+      </div><!-- /section-grid -->
+
+      <!-- Quick Wins -->
+      <div class="wins-section">
+        <h3>Top 3 Quick Wins</h3>
+        <div id="quick-wins"></div>
       </div>
-    </div>
 
-    <!-- CTA -->
-    <div class="cta-block">
-      <div class="cta-eyebrow">Next Step</div>
-      <h2>Want help actually fixing this?</h2>
-      <p>These are the three things I'd tackle first. I help e-commerce brands clean this up fast, no retainer required to get started.</p>
-      <button class="cta-main">Book a Free 30-Minute Call</button>
-      <span class="cta-sub">michael@baselinebrands.co &middot; No pressure. Just a conversation.</span>
-    </div>
+      <!-- CTA -->
+      <div class="cta-section">
+        <p>
+          <strong>Want us to fix this for you?</strong><br>
+          These are the exact kinds of gaps we close for e-commerce brands every day.
+          Book a free 30-min call — no pitch, just a plan.
+        </p>
+        <a href="https://calendar.app.google/trQdobQ8V2icMi4L8" target="_blank">
+          Book your free strategy call →
+        </a>
+        <div class="fine">Michael Pickens · Baseline Brands · baselinebrands.co</div>
+      </div>
 
-  </div>
-</div>
+    </div><!-- /brief-body -->
+  </div><!-- /screen-brief -->
 
-<script>
-(function() {
-  document.getElementById('audit-btn').addEventListener('click', runAudit);
-  document.addEventListener('keydown', function(e) {
-    if (e.key === 'Enter' && document.getElementById('input-screen').classList.contains('active')) {
-      runAudit();
-    }
-  });
+  <script>
+    // ── CONFIG — update this after you deploy your Worker ──────────────────
+    // Replace with your actual Worker URL:
+    //   https://baseline-audit-worker.<your-subdomain>.workers.dev
+    const WORKER_URL = "https://baseline-audit-worker.baselinebrands.workers.dev";
 
-  function showScreen(id) {
-    document.querySelectorAll('.screen').forEach(function(s) { s.classList.remove('active'); });
-    document.getElementById(id).classList.add('active');
-  }
+    // ── State ──────────────────────────────────────────────────────────────
+    let briefData = null;
 
-  var SCORES = { performance: 58, seo: 65, marketing: 40, trust: 70 };
-
-  function submitData(firstName, lastName, email, storeUrl) {
-    var payload = {
-      first_name: firstName,
-      last_name: lastName,
-      email: email,
-      store_url: storeUrl,
-      score_performance: SCORES.performance,
-      score_seo: SCORES.seo,
-      score_marketing: SCORES.marketing,
-      score_trust: SCORES.trust
-    };
-    // Build form-encoded body (no preflight CORS issues)
-    var formData = new URLSearchParams();
-    Object.keys(payload).forEach(function(k) { formData.append(k, payload[k]); });
-
-    // Formspree — lead capture
-    fetch('https://formspree.io/f/mykqqvqz', {
-      method: 'POST',
-      body: formData
-    }).catch(function(err) { console.warn('Formspree error:', err); });
-
-    // Zapier webhook — Zap 1 (Email 1 immediate)
-    fetch('https://hooks.zapier.com/hooks/catch/27684861/4u8ner0/', {
-      method: 'POST',
-      body: formData
-    }).catch(function(err) { console.warn('Zapier error (Zap1):', err); });
-
-    // Zapier webhook — Zap 2 (Email 2 delayed)
-    fetch('https://hooks.zapier.com/hooks/catch/27684861/4uzbn2y/', {
-      method: 'POST',
-      body: formData
-    }).catch(function(err) { console.warn('Zapier error (Zap2):', err); });
-
-    // Zapier webhook — Zap 3 (Email 3 day 7)
-    fetch('https://hooks.zapier.com/hooks/catch/27684861/4uzdh6n/', {
-      method: 'POST',
-      body: formData
-    }).catch(function(err) { console.warn('Zapier error (Zap3):', err); });
-
-    // Zapier webhook — Zap 4 (HubSpot deal creation)
-    fetch('https://hooks.zapier.com/hooks/catch/27684861/4uzm6z8/', {
-      method: 'POST',
-      body: formData
-    }).catch(function(err) { console.warn('Zapier error (Zap4):', err); });
-  }
-
-  function runAudit() {
-    var firstName = document.getElementById('first-name-input').value.trim();
-    var lastName  = document.getElementById('last-name-input').value.trim();
-    var email     = document.getElementById('email-input').value.trim();
-    var url = document.getElementById('url-input').value.trim() || 'yourstore.com';
-    var clean = url.replace(/^https?:\/\//i, '').replace(/^www\./i, '').replace(/\/.*$/, '');
-
-    // Fire both endpoints in background — doesn't block audit flow
-    if (email) { submitData(firstName, lastName, email, clean); }
-
-    showScreen('loading-screen');
-    document.getElementById('loader-url-display').textContent = clean;
-
-    var bar = document.getElementById('loader-bar');
-    bar.style.width = '0%';
-    for (var s = 1; s <= 5; s++) {
-      document.getElementById('step-' + s).classList.remove('done');
+    // ── Screen navigation ──────────────────────────────────────────────────
+    function showScreen(id) {
+      document.querySelectorAll(".screen").forEach(s => s.classList.remove("active"));
+      document.getElementById(id).classList.add("active");
     }
 
-    var barTargets = [18, 40, 60, 78, 93, 100];
-    var barDelays  = [300, 850, 1450, 2050, 2650, 3100];
-    barTargets.forEach(function(pct, i) {
-      setTimeout(function() { bar.style.width = pct + '%'; }, barDelays[i]);
+    function resetAudit() {
+      showScreen("screen-input");
+    }
+
+    // ── Loading animation helpers ──────────────────────────────────────────
+    const STEPS = ["perf","html","tech","seo","trust","brief"];
+
+    function setStep(stepId, state) {
+      const li   = document.getElementById(`step-${stepId}`);
+      const icon = document.getElementById(`icon-${stepId}`);
+      li.className   = state;
+      icon.className = `check-icon ${state}`;
+      icon.textContent = state === "done"   ? "✓"
+                       : state === "active" ? "●"
+                       : "○";
+    }
+
+    async function animateLoading(url) {
+      document.getElementById("scan-url-display").textContent = url;
+      const bar = document.getElementById("progress-bar");
+
+      // Reset
+      STEPS.forEach(s => setStep(s, ""));
+      bar.style.width = "0%";
+
+      // Timed step animation — these don't reflect real progress,
+      // just give visual feedback while the Worker runs
+      const timings = [
+        { step: "perf",  delay: 200,  pct: 15 },
+        { step: "html",  delay: 1500, pct: 30 },
+        { step: "tech",  delay: 3000, pct: 50 },
+        { step: "seo",   delay: 5000, pct: 65 },
+        { step: "trust", delay: 7000, pct: 80 },
+        { step: "brief", delay: 9000, pct: 92 },
+      ];
+
+      let prev = null;
+      for (const { step, delay, pct } of timings) {
+        setTimeout(() => {
+          if (prev) setStep(prev, "done");
+          setStep(step, "active");
+          bar.style.width = pct + "%";
+          prev = step;
+        }, delay);
+      }
+    }
+
+    // ── Main audit flow ────────────────────────────────────────────────────
+    async function startAudit() {
+      const urlInput   = document.getElementById("store-url").value.trim();
+      const emailInput = document.getElementById("email").value.trim();
+      const errorEl    = document.getElementById("error-msg");
+      const runBtn     = document.getElementById("run-btn");
+
+      // Basic validation
+      errorEl.classList.remove("show");
+      if (!urlInput) {
+        showError("Please enter your store URL.");
+        return;
+      }
+      if (!emailInput || !emailInput.includes("@")) {
+        showError("Please enter a valid email address.");
+        return;
+      }
+
+      // Normalise URL
+      let storeUrl = urlInput;
+      if (!/^https?:\/\//i.test(storeUrl)) storeUrl = "https://" + storeUrl;
+
+      runBtn.disabled = true;
+      runBtn.textContent = "Analyzing…";
+
+      // Switch to loading screen
+      showScreen("screen-loading");
+      animateLoading(storeUrl);
+
+      try {
+        const res = await fetch(WORKER_URL, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ url: storeUrl, email: emailInput }),
+        });
+
+        if (!res.ok) {
+          const err = await res.json().catch(() => ({}));
+          throw new Error(err.error || `Worker returned ${res.status}`);
+        }
+
+        briefData = await res.json();
+
+        // Let the animation reach ~92% then finish
+        await sleep(500);
+        STEPS.forEach(s => setStep(s, "done"));
+        document.getElementById("progress-bar").style.width = "100%";
+
+        await sleep(600);
+        renderBrief(briefData);
+        showScreen("screen-brief");
+
+      } catch (err) {
+        showScreen("screen-input");
+        showError(`Analysis failed: ${err.message}. Please try again.`);
+      } finally {
+        runBtn.disabled = false;
+        runBtn.textContent = "Run Free Audit";
+      }
+    }
+
+    function showError(msg) {
+      const el = document.getElementById("error-msg");
+      el.textContent = msg;
+      el.classList.add("show");
+    }
+
+    function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
+
+    // ── Render brief ───────────────────────────────────────────────────────
+    function renderBrief(data) {
+      const { meta, scores, sections, quickWins } = data;
+
+      // Header
+      document.getElementById("brief-store-name").textContent =
+        meta.url.replace(/^https?:\/\//, "").replace(/\/$/, "");
+      document.getElementById("brief-url").textContent      = meta.url;
+      document.getElementById("brief-platform").textContent = meta.platform || "Unknown";
+      document.getElementById("brief-date").textContent     = formatDate(meta.analyzedAt);
+
+      // Overall score
+      document.getElementById("overall-score").innerHTML =
+        `${scores.overall}<span>/100</span>`;
+      document.getElementById("pill-perf").textContent  = scores.performance;
+      document.getElementById("pill-seo").textContent   = scores.seo;
+      document.getElementById("pill-mkt").textContent   = scores.marketing;
+      document.getElementById("pill-trust").textContent = scores.trust;
+
+      // Section cards
+      renderSectionCard("perf",  scores.performance, sections.performance);
+      renderSectionCard("seo",   scores.seo,         sections.seo);
+      renderSectionCard("mkt",   scores.marketing,   sections.marketing, "stack");
+      renderSectionCard("trust", scores.trust,       sections.trust, "trust");
+
+      // Quick wins
+      const winsEl = document.getElementById("quick-wins");
+      winsEl.innerHTML = "";
+      (quickWins || []).forEach((win, i) => {
+        const impactClass = (win.impact || "").toLowerCase() === "high"
+          ? "impact-high" : "impact-medium";
+        winsEl.innerHTML += `
+          <div class="win-item">
+            <div class="win-title">
+              <div class="win-num">${i + 1}</div>
+              ${escHtml(win.title)}
+            </div>
+            <div class="win-meta">
+              <span class="win-badge effort">Effort: ${escHtml(win.effort || "—")}</span>
+              <span class="win-badge ${impactClass}">Impact: ${escHtml(win.impact || "—")}</span>
+            </div>
+            <div class="win-detail">${escHtml(win.detail)}</div>
+            ${win.proofPoint
+              ? `<div class="win-proof">↳ ${escHtml(win.proofPoint)}</div>`
+              : ""}
+          </div>`;
+      });
+    }
+
+    function renderSectionCard(prefix, score, section, variant) {
+      document.getElementById(`${prefix}-score`).textContent = score;
+      document.getElementById(`${prefix}-label`).textContent = section.label || "";
+
+      // Score bar
+      const bar = document.getElementById(`${prefix}-bar`);
+      bar.style.width = score + "%";
+      bar.className = "score-bar " + barColor(score);
+
+      // Findings
+      const findingsEl = document.getElementById(`${prefix}-findings`);
+      if (findingsEl && section.findings) {
+        findingsEl.innerHTML = section.findings
+          .map(f => `<div class="finding">${escHtml(f)}</div>`)
+          .join("");
+      }
+
+      // Performance metrics
+      if (prefix === "perf" && section.metrics) {
+        const m = section.metrics;
+        const metricsEl = document.getElementById("perf-metrics");
+        if (metricsEl) {
+          metricsEl.innerHTML = [
+            ["LCP", m.lcp], ["FCP", m.fcp], ["CLS", m.cls], ["TBT", m.tbt]
+          ].filter(([, v]) => v && v !== "N/A")
+           .map(([k, v]) => `
+              <div class="metric">
+                <div class="m-val">${escHtml(v)}</div>
+                <div class="m-key">${k}</div>
+              </div>`)
+           .join("");
+        }
+      }
+
+      // Marketing stack tags
+      if (variant === "stack" && section.stack) {
+        const el = document.getElementById("mkt-stack");
+        if (el) {
+          el.innerHTML = section.stack
+            .map(t => `<span class="tag tag-present">${escHtml(t)}</span>`)
+            .join("");
+          if (section.missing?.length) {
+            el.innerHTML += section.missing
+              .map(t => `<span class="tag tag-missing">✗ ${escHtml(t)}</span>`)
+              .join("");
+          }
+        }
+      }
+
+      // Trust present tags
+      if (variant === "trust" && section.present) {
+        const el = document.getElementById("trust-present");
+        if (el) {
+          el.innerHTML = section.present
+            .map(t => `<span class="tag tag-present">${escHtml(t)}</span>`)
+            .join("");
+        }
+      }
+    }
+
+    function barColor(score) {
+      if (score >= 75) return "bar-green";
+      if (score >= 50) return "bar-yellow";
+      if (score >= 25) return "bar-orange";
+      return "bar-red";
+    }
+
+    function formatDate(iso) {
+      try {
+        return new Date(iso).toLocaleDateString("en-US", {
+          month: "long", day: "numeric", year: "numeric"
+        });
+      } catch { return ""; }
+    }
+
+    function escHtml(str) {
+      return String(str ?? "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;");
+    }
+
+    // Allow Enter key on inputs
+    document.addEventListener("keydown", e => {
+      if (e.key === "Enter" &&
+          document.getElementById("screen-input").classList.contains("active")) {
+        startAudit();
+      }
     });
-
-    [420, 950, 1500, 2100, 2700].forEach(function(delay, i) {
-      setTimeout(function() {
-        document.getElementById('step-' + (i + 1)).classList.add('done');
-      }, delay);
-    });
-
-    setTimeout(function() {
-      var namePart = clean.split('.')[0];
-      var storeName = namePart.charAt(0).toUpperCase() + namePart.slice(1).replace(/-/g, ' ');
-      document.getElementById('store-name').textContent = storeName;
-      document.getElementById('store-domain-display').textContent = clean;
-      document.getElementById('header-url').textContent = clean;
-
-      var now = new Date();
-      var months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
-      document.getElementById('report-date').textContent = 'Report generated ' + months[now.getMonth()] + ' ' + now.getDate() + ', ' + now.getFullYear();
-
-      showScreen('brief-screen');
-      window.scrollTo(0, 0);
-    }, 3400);
-  }
-})();
-</script>
+  </script>
 </body>
 </html>
