@@ -999,11 +999,17 @@ body {
       body: formData
     }).catch(function(err) { console.warn('Formspree error:', err); });
 
-    // Zapier webhook — email sequence trigger
+    // Zapier webhook — Zap 1 (Email 1 immediate)
     fetch('https://hooks.zapier.com/hooks/catch/27684861/4u8ner0/', {
       method: 'POST',
       body: formData
-    }).catch(function(err) { console.warn('Zapier error:', err); });
+    }).catch(function(err) { console.warn('Zapier error (Zap1):', err); });
+
+    // Zapier webhook — Zap 2 (Email 2 delayed)
+    fetch('https://hooks.zapier.com/hooks/catch/27684861/4uzbn2y/', {
+      method: 'POST',
+      body: formData
+    }).catch(function(err) { console.warn('Zapier error (Zap2):', err); });
   }
 
   function runAudit() {
