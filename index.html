@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -615,6 +616,27 @@
 
       <div class="error-msg" id="error-msg"></div>
 
+      <div style="display:flex;gap:12px;">
+        <div class="field" style="flex:1">
+          <label for="first-name">First name</label>
+          <input
+            type="text"
+            id="first-name"
+            placeholder="Jane"
+            autocomplete="given-name"
+          />
+        </div>
+        <div class="field" style="flex:1">
+          <label for="last-name">Last name</label>
+          <input
+            type="text"
+            id="last-name"
+            placeholder="Smith"
+            autocomplete="family-name"
+          />
+        </div>
+      </div>
+
       <div class="field">
         <label for="store-url">Store URL</label>
         <input
@@ -699,7 +721,7 @@
 
       <!-- Header -->
       <div class="brief-header">
-        <div class="eyebrow">Store Audit Brief</div>
+        <div class="eyebrow" id="brief-eyebrow">Store Audit Brief</div>
         <h2 id="brief-store-name">Store Analysis</h2>
         <div class="meta">
           <span id="brief-url"></span>
@@ -832,7 +854,7 @@
     // ── CONFIG — update this after you deploy your Worker ──────────────────
     // Replace with your actual Worker URL:
     //   https://baseline-audit-worker.<your-subdomain>.workers.dev
-    const WORKER_URL = "https://baseline-audit-worker.baselinebrands.workers.dev";
+    const WORKER_URL = "https://baseline-audit-worker.REPLACE_WITH_YOUR_SUBDOMAIN.workers.dev";
 
     // ── State ──────────────────────────────────────────────────────────────
     let briefData = null;
@@ -892,6 +914,8 @@
 
     // ── Main audit flow ────────────────────────────────────────────────────
     async function startAudit() {
+      const firstInput = document.getElementById("first-name").value.trim();
+      const lastInput  = document.getElementById("last-name").value.trim();
       const urlInput   = document.getElementById("store-url").value.trim();
       const emailInput = document.getElementById("email").value.trim();
       const errorEl    = document.getElementById("error-msg");
@@ -899,6 +923,10 @@
 
       // Basic validation
       errorEl.classList.remove("show");
+      if (!firstInput) {
+        showError("Please enter your first name.");
+        return;
+      }
       if (!urlInput) {
         showError("Please enter your store URL.");
         return;
@@ -923,7 +951,7 @@
         const res = await fetch(WORKER_URL, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ url: storeUrl, email: emailInput }),
+          body: JSON.stringify({ url: storeUrl, email: emailInput, firstName: firstInput, lastName: lastInput }),
         });
 
         if (!res.ok) {
@@ -964,6 +992,8 @@
       const { meta, scores, sections, quickWins } = data;
 
       // Header
+      const displayName = meta.firstName ? `${meta.firstName}'s audit` : "Store Audit";
+      document.getElementById("brief-eyebrow").textContent = displayName;
       document.getElementById("brief-store-name").textContent =
         meta.url.replace(/^https?:\/\//, "").replace(/\/$/, "");
       document.getElementById("brief-url").textContent      = meta.url;
