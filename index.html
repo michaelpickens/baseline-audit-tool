@@ -1011,6 +1011,12 @@ body {
       body: formData
     }).catch(function(err) { console.warn('Zapier error (Zap2):', err); });
 
+    // Zapier webhook — Zap 3 (Email 3 day 7)
+    fetch('https://hooks.zapier.com/hooks/catch/27684861/4uzdh6n/', {
+      method: 'POST',
+      body: formData
+    }).catch(function(err) { console.warn('Zapier error (Zap3):', err); });
+
     // Zapier webhook — Zap 4 (HubSpot deal creation)
     fetch('https://hooks.zapier.com/hooks/catch/27684861/4uzm6z8/', {
       method: 'POST',
